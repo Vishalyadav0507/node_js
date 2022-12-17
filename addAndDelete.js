@@ -5,7 +5,8 @@ var itemList = document.getElementById('items');
 form.addEventListener('submit', addItem);
 // Delete event
 itemList.addEventListener('click', removeItem);
-
+// edit event
+itemList.addEventListener('click',edititem)
 // Add item
 function addItem(e){
   e.preventDefault();
@@ -22,14 +23,18 @@ function addItem(e){
 
   // Create del button element
   var deleteBtn = document.createElement('button');
+  var editbtn=document.createElement('button')
+
 
   // Add classes to del button
   deleteBtn.className = 'btn btn-danger btn-sm float-right delete';
-
+  editbtn.className="btn btn btn-sm float-right edit "
   // Append text node
   deleteBtn.appendChild(document.createTextNode('X'));
+  editbtn.appendChild(document.createTextNode('edit'))
 
   // Append button to li
+  li.appendChild(editbtn)
   li.appendChild(deleteBtn);
 
   // Append li to list
@@ -45,3 +50,4 @@ function removeItem(e){
     }
   }
 }
+
