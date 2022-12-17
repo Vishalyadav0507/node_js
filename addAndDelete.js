@@ -1,25 +1,30 @@
 var form = document.getElementById('addForm');
 var itemList = document.getElementById('items');
-
+var description=document.getElementById('description')
+var filter = document.getElementById('filter');
 
 form.addEventListener('submit', addItem);
 // Delete event
 itemList.addEventListener('click', removeItem);
-// edit event
-itemList.addEventListener('click',edititem)
+
+filter.addEventListener('keyup', filterItems);
+// add description
+
 // Add item
 function addItem(e){
   e.preventDefault();
 
   // Get input value
   var newItem = document.getElementById('item').value;
-
+  var des=document.getElementById('description').value;
   // Create new li element
   var li = document.createElement('li');
   // Add class
   li.className = 'list-group-item';
   // Add text node with input value
   li.appendChild(document.createTextNode(newItem));
+  li.appendChild(document.createTextNode(" "+des));
+
 
   // Create del button element
   var deleteBtn = document.createElement('button');
@@ -34,8 +39,8 @@ function addItem(e){
   editbtn.appendChild(document.createTextNode('edit'))
 
   // Append button to li
-  li.appendChild(editbtn)
   li.appendChild(deleteBtn);
+  li.appendChild(editbtn)
 
   // Append li to list
   itemList.appendChild(li);
@@ -49,5 +54,19 @@ function removeItem(e){
       itemList.removeChild(li);
     }
   }
+}
+// filter function
+function filterItems(e){
+  var text = e.target.value.toLowerCase();
+  var items = itemList.getElementsByTagName('li');
+  Array.from(items).forEach(function(item){
+    var itemName = item.firstChild.textContent;
+    var desName =item.childNodes[1].textContent
+    if(itemName.toLowerCase().indexOf(text) != -1 || desName.toLowerCase().indexOf(text) != -1 ){
+      item.style.display = 'block';
+    }else {
+      item.style.display = 'none';
+    }
+  })
 }
 
