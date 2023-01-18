@@ -1,5 +1,6 @@
 var form=document.getElementById('my-form')
 form.addEventListener('submit',addpost)
+// form.addEventListener('onclick',deletePost)
 
 
 function addpost(e){
@@ -14,13 +15,13 @@ function addpost(e){
         'phone':number
     }
     axios
-        .post('https://crudcrud.com/api/6ec7e0a833294cdfab1f5c1dda39b933/StudentData',obj)
+        .post('https://crudcrud.com/api/bba49e273213476fa003d041b6bc9621/StudentData',obj)
     .then((response)=>{ showOnScreen(response.data)})
 
 }
 
 window.addEventListener("DOMContentLoaded",()=>{
-    axios.get('https://crudcrud.com/api/6ec7e0a833294cdfab1f5c1dda39b933/StudentData')
+    axios.get('https://crudcrud.com/api/bba49e273213476fa003d041b6bc9621/StudentData')
     .then((response)=>{console.log(response)
         for (var i=0; i<response.data.length;i++){
             showOnScreen(response.data[i])
@@ -30,6 +31,18 @@ window.addEventListener("DOMContentLoaded",()=>{
 
 function showOnScreen(user){
     const perentNode=document.getElementById('show')
-    const childHTML =`<li> ${user.Name} ${user.Email} </li>`
+    const childHTML =`<li id=${user._id} > ${user.Name} ${user.Email} <button class="danger" onclick=deletePost('${user._id}') >delete</button></li>`
     perentNode.innerHTML = perentNode.innerHTML+childHTML;
 }
+
+function deletePost(userID){
+    axios
+    .delete(`https://crudcrud.com/api/bba49e273213476fa003d041b6bc9621/StudentData/${userID}`)
+.then(removeScreen(userID))}
+
+function removeScreen(userId){
+    const parentnode=document.getElementById('show')
+    const childNodeToDeleted=document.getElementById(userId)
+    parentnode.removeChild(childNodeToDeleted)
+}
+
