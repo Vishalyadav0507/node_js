@@ -1,27 +1,22 @@
 var form=document.getElementById('my-form')
 form.addEventListener('submit',addpost)
-// form.addEventListener('onclick',deletePost)
-
 
 function addpost(e){
     e.preventDefault();
 
-    var name= document.getElementById('name').value
-    var email= document.getElementById('email').value
-    var number= document.getElementById('phone').value   
     const obj={
-        'Name':name,
-        'Email':email,
-        'phone':number
+        'Name':document.getElementById('name').value,
+        'Email':document.getElementById('email').value,
+        'phone':document.getElementById('phone').value 
     }
     axios
-        .post('https://crudcrud.com/api/bba49e273213476fa003d041b6bc9621/StudentData',obj)
+        .post('https://crudcrud.com/api/6e4dc0a2bb9643efb0dfe2b19725ed0f/StudentData',obj)
     .then((response)=>{ showOnScreen(response.data)})
 
 }
 
 window.addEventListener("DOMContentLoaded",()=>{
-    axios.get('https://crudcrud.com/api/bba49e273213476fa003d041b6bc9621/StudentData')
+    axios.get('https://crudcrud.com/api/6e4dc0a2bb9643efb0dfe2b19725ed0f/StudentData')
     .then((response)=>{console.log(response)
         for (var i=0; i<response.data.length;i++){
             showOnScreen(response.data[i])
@@ -31,13 +26,13 @@ window.addEventListener("DOMContentLoaded",()=>{
 
 function showOnScreen(user){
     const perentNode=document.getElementById('show')
-    const childHTML =`<li id=${user._id} > ${user.Name} ${user.Email} <button class="danger" onclick=deletePost('${user._id}') >delete</button></li>`
+    const childHTML =`<li id=${user._id} > ${user.Name} ${user.Email} <button class ='primary' onclick=updateDetails('${user._id}','${user.Name}','${user.Email}','${user.phone}')>edit</button> <button class="danger" onclick=deletePost('${user._id}') >delete</button></li>`
     perentNode.innerHTML = perentNode.innerHTML+childHTML;
 }
 
 function deletePost(userID){
     axios
-    .delete(`https://crudcrud.com/api/bba49e273213476fa003d041b6bc9621/StudentData/${userID}`)
+    .delete(`https://crudcrud.com/api/6e4dc0a2bb9643efb0dfe2b19725ed0f/StudentData/${userID}`)
 .then(removeScreen(userID))}
 
 function removeScreen(userId){
@@ -46,3 +41,15 @@ function removeScreen(userId){
     parentnode.removeChild(childNodeToDeleted)
 }
 
+function updateDetails(userID,Name,Email,phone){
+    document.getElementById('name').value=Name
+    document.getElementById('email').value=Email
+    document.getElementById('phone').value=phone
+    removeScreen(userID)
+    axios
+    .put(`https://crudcrud.com/api/6e4dc0a2bb9643efb0dfe2b19725ed0f/StudentData/${userID}`,{
+        Name: document.getElementById('name').value,
+        Email:document.getElementById('email').value,
+        phone:document.getElementById('phone').value
+})
+}
