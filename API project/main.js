@@ -8,7 +8,7 @@ function postdetails(e) {
         'Item': document.getElementById('item').value
     }
     axios
-        .post('https://crudcrud.com/api/b134c21b65254fc696bbdccd4bfb1fc2/Details', obj)
+        .post('https://crudcrud.com/api/f3c96ef67b8f4f25bd587d5a87eef4c4/Details', obj)
         .then((response) => {
             showOnScreen(response.data)
             calculate(response.data.Price)
@@ -17,7 +17,7 @@ function postdetails(e) {
 
 window.addEventListener("DOMContentLoaded",() => {
     
-    axios.get('https://crudcrud.com/api/b134c21b65254fc696bbdccd4bfb1fc2/Details')
+    axios.get('https://crudcrud.com/api/f3c96ef67b8f4f25bd587d5a87eef4c4/Details')
     .then((response) => {
             for (var i = 0; i < response.data.length; i++){
                 showOnScreen(response.data[i])
@@ -28,13 +28,13 @@ window.addEventListener("DOMContentLoaded",() => {
 
 function showOnScreen(item) {
     const perentNode = document.getElementById('itemDetails')
-    const childHTML = `<li id='${item._id}'> ${item.Price} ${item.Item} <button onclick=deletePost('${item._id}',${item.Price})>delete</button></li>`
+    const childHTML = `<li id='${item._id}'> price: ${item.Price} Item Name : ${item.Item} <button onclick=deletePost('${item._id}',${item.Price})>delete</button></li>`
     perentNode.innerHTML = perentNode.innerHTML + childHTML;
 }
 
 function deletePost(itemID,Price) {
     axios
-        .delete(`https://crudcrud.com/api/b134c21b65254fc696bbdccd4bfb1fc2/Details/${itemID}`)
+        .delete(`https://crudcrud.com/api/f3c96ef67b8f4f25bd587d5a87eef4c4/Details/${itemID}`)
         .then((response)=>{
             removeScreen(itemID)
             calculateSub(Price)
@@ -49,12 +49,12 @@ function removeScreen(itemID){
 function calculate(Price){
     const parent=document.getElementById('itemPrice')
     price=Number(Price)+Number(price)
-    const childHTML= `<h4> total price is ${price}</h4>`
+    const childHTML= `<h4> total price is :${price}</h4>`
     parent.innerHTML=childHTML
 }
 function calculateSub(Price){
     const parent=document.getElementById('itemPrice')
     price=Number(price)-Number(Price)
-    const childHTML= `<h4> total price is ${price}</h4>`
+    const childHTML= `<h4> total price is :${price}</h4>`
     parent.innerHTML=childHTML
 }
