@@ -1,46 +1,58 @@
 var form = document.getElementById('form')
-form.addEventListener('submit',addTable)
+form.addEventListener('submit', addTable)
 
-function addTable(e) {
-    e.preventDefault();
+async function addTable(event) {
+    try{
+    event.preventDefault()
     const obj = {
+        'Dish': document.getElementById('dish').value,
         'Price': document.getElementById('price').value,
-        'dish': document.getElementById('dish').value,
-        'table_no': document.getElementById('table').value,
+        'tableNo': document.getElementById('table').value,
     }
-    axios
-        .post('https://crudcrud.com/api/6d9fccf29bac4eddad4bbfa3020ec742/Table',obj)
-        .then((response) => {
-            showOnScreen(item.data)
+    let response = await axios
+        .post('https://crudcrud.com/api/4eeaadb2644049c487035c6ba3dd37d0/Table', obj)
+
+    showOnScreen(response.data)
+    }
+    catch{err=>{console.log(err)}}
+}
+window.addEventListener("DOMContentLoaded", async () =>{
+    
+    let response = await axios.get('https://crudcrud.com/api/4eeaadb2644049c487035c6ba3dd37d0/Table')
+    if (response){
+        response.data.forEach(data => {
+            showOnScreen(data)
         })
-        .catch((err) => {console.log(err)})
     }
+    
+})
 
+function showOnScreen(Details) {
+    try{
+    const parentNode = document.getElementById(Details.tableNo)
+    const childNode = `<li id=${Details._id}>Dish name is :- ${Details.Dish} and price is :- ₹${Details.Price} <button class="btn btn-danger" onclick=deleteTable('${Details._id}','${Details.tableNo}')>delete</button></li>`
+    parentNode.innerHTML = parentNode.innerHTML + childNode
+    // parentNode.appendChild(childNode)
+    }catch{err=>{console.log(err)}}
+}
 
-    window.addEventListener('DOMContentLoaded',()=>{
-        axios.get('https://crudcrud.com/api/6d9fccf29bac4eddad4bbfa3020ec742/Table')
-        .then((response)=>{
-            for(var i=0; i<response.data.length; i++){
-                showOnScreen(response.data[i])}
-            })}
+function deleteTable(tableId, Tableno){
+    try{
+    axios.delete(`https://crudcrud.com/api/4eeaadb2644049c487035c6ba3dd37d0/Table/${tableId}`)
+    .then(
+            deleteOnScreen(tableId,Tableno)
     )
-function showOnScreen(item){
-    const parentNode = document.getElementById(item.table_no)
-    const childNode = `<li id="${item._id}" >${item.table_no}  ${item.Price} ${item.dish}<button onclick=deleteTable('${item._id},${item.table_no}')>delete</button></li>`
-    parentNode.innerHTML = parentNode.innerHTML+childNode;
+    }
+    catch{err=>{console.log(err)}}
+
 }
 
-function deleteTable(tableID,tableNo){
-    axios
-        .delete(`https://crudcrud.com/api/6d9fccf29bac4eddad4bbfa3020ec742/${tableID}`)
-        .then((response)=>{
-            removeScreen(tableID,tableNo)
-        })
+function deleteOnScreen(tableId,tableNo) {
+    try{
+    const parent = document.getElementById(tableNo)
+    const child = document.getElementById(tableId)
+    parent.removeChild(child)
 }
-
-function removeScreen(tableId,tableNo){
-    const parentnode = document.getElementById(tableNo)
-    const childNodeToDeleted = document.getElementById(tableId)
-    parentnode.removeChild(childNodeToDeleted)
-
+    catch{err=>{console.log(err)}
+}
 }
