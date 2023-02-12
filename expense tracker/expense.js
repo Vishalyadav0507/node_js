@@ -3,10 +3,10 @@ const path= require('path')
 const bodyParser=require('body-parser')
 var cors=require('cors');
 
-const sequelize=require('./util/path')
-const  itemRoute=require('./routes/items')
+const sequelize=require('./util/itemPath')
+const  itemRoute=require('./routes/itemRoute')
 
-const Item=require('./model/itemdatabase')
+const Item=require('./model/item')
 
 const app=express()
 app.use(cors())

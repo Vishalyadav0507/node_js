@@ -1,4 +1,4 @@
-const Item=require("../model/itemdatabase")
+const Item=require("../model/item")
 
 const getItem=async(req,res,next)=>{
     try{

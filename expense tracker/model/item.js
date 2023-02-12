@@ -1,6 +1,6 @@
 const Sequelize=require('sequelize')
 
-const sequelize=require('../util/path')
+const sequelize=require('../util/itemPath')
 
 const Item=sequelize.define('item',{
     id:{
