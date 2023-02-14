@@ -6,7 +6,6 @@ var cors=require('cors');
 const sequelize=require('./util/itemPath')
 const  itemRoute=require('./routes/itemRoute')
 
-const Item=require('./model/item')
 
 const app=express()
 app.use(cors())

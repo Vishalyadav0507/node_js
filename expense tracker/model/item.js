@@ -6,8 +6,8 @@ const Item=sequelize.define('item',{
     id:{
         type:Sequelize.INTEGER,
         autoIncreament:true,
-        UNIQUE:true,
-        primaryKey:true
+        primaryKey:true,
+        allowNull:true
     },
     price:{
         type:Sequelize.INTEGER,

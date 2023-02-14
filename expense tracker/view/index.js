@@ -2,15 +2,20 @@ var form = document.getElementById('form')
 form.addEventListener('submit', postdetails)
 
 function postdetails(e) {
+    console.log('clicked')
     try {
+        // var id = 0
         e.preventDefault();
         const obj = {
+            // 'id':id+1,
             'Price': document.getElementById('price').value,
             'Item': document.getElementById('item').value
         }
+        
         axios
             .post('http://localhost:3000/item/additem', obj)
             .then((response) => {
+                
                 showOnScreen(response.data.newData)
                 calculate(response.data.newData.price)
             })
@@ -76,3 +81,14 @@ function calculateSub(Price) {
     const childHTML = `<h4> total price is :${price}</h4>`
     parent.innerHTML = childHTML
 }
+
+// function edit(id,price,product){
+//     document.getElementById('price').value=price
+//     document.getElementById('item').value=product
+//     removeScreen(id)
+//     calculateSub(price)
+
+//    axios.put(`http://localhost:3000/item/editItem/${id}`)
+//     .then()
+    
+// }
