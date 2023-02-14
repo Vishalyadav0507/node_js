@@ -14,6 +14,7 @@ const postItem= async(req,res,next)=>{
     }
 }
 
+
 const getItem=async(req,res,next)=>{
     try{
     const alldata=await Item.findAll()

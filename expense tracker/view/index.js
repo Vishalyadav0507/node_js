@@ -11,7 +11,6 @@ function postdetails(e) {
             'Price': document.getElementById('price').value,
             'Item': document.getElementById('item').value
         }
-        
         axios
             .post('http://localhost:3000/item/additem', obj)
             .then((response) => {
