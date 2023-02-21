@@ -10,6 +10,4 @@ router.get('/additem',itemController.getItem)
 
 router.delete('/item/deleteitem/:id',itemController.DeletePost)
 
-// router.post('/item/editItem/:id',itemController.editPost)
-
 module.exports=router

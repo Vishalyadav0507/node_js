@@ -2,7 +2,6 @@ const Item=require("../model/item")
 
 const postItem= async(req,res,next)=>{
     try{
-    // const id=req.body.id
     const Price=req.body.Price
     const Product=req.body.Item
 
@@ -34,10 +33,6 @@ const DeletePost=async(req,res,next)=>{
         console.log(err)
     }
 }
-
-// const editPost =async(req,res,next)=>{
-
-// }
 
 module.exports={
     postItem:postItem,

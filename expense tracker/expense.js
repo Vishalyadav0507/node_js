@@ -16,7 +16,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(itemRoute)
 
 
-sequelize.sync({force:true})
+sequelize.sync()
 .then(result=>{
     app.listen(3000)
 })
